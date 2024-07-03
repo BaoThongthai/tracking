@@ -10,10 +10,14 @@
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <style src="styteIndex.css"></style>
+    <!-- Custom CSS -->
 </head>
-<body>
+
+<body >
+
   <div class="container mt-5">
-    <h2>Form nhập thông tin</h2>
+    <h3>Tracking Form</h3>
     <form id="trackingForm">
       <div class="form-group">
         <label for="tenCuahang">Tên cửa hàng</label>
@@ -21,10 +25,12 @@
       </div>
       <div class="form-group">
         <label for="linkCMND">Link CMND</label>
+        <small style="color: red;">*Link hình ảnh</small>
         <input type="text" class="form-control" id="linkCMND" name="linkCMND" required>
       </div>
       <div class="form-group">
         <label for="linkHopDong">Link hợp đồng</label>
+        <small style="color: red;">*Link hợp đồng</small>
         <input type="text" class="form-control" id="linkHopDong" name="linkHopDong" required>
       </div>
       <div class="form-group">
@@ -38,10 +44,16 @@
           <label class="form-check-label" for="trangThai0">Chưa thành công</label>
         </div>
       </div>
-      <button type="submit" class="btn btn-primary">Gửi thông tin</button>
+      <button type="submit" class="btn btn-success">Gửi thông tin</button>
+      <a style="float: right;" href="showdata.html">Xem Thông tin</a>
     </form>
   </div>
 
 </body>
 <script src="script.js"></script>
+<script>
+  document.getElementById("viewInfoBtn").addEventListener("click", function() {
+      window.location.href = "showdata.html";
+  });
+</script>
 </html>
