@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Export API Data to Excel</title>
+    <!-- Nạp thư viện xlsx -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Xuất dữ liệu từ API thành Excel</h1>
+        <button onclick="exportToExcel()">Xuất Excel</button>
+    </div>
+
+    <script>
+        async function fetchData() {
+            try {
+                const response = await fetch('https://6605116c2ca9478ea17f2d5d.mockapi.io/tenduongdanang/tracking'); // Thay thế URL API của bạn ở đây
+                if (!response.ok) {
+                    throw new Error('Failed to fetch data');
+                }
+                return await response.json();
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                return [];
+            }
+        }
+
+        async function exportToExcel() {
+            const jsonData = await fetchData(); // Gọi hàm fetchData để lấy dữ liệu từ API
+
+            // Kiểm tra dữ liệu có rỗng hay không
+            if (jsonData.length === 0) {
+                alert('Không có dữ liệu để xuất Excel.');
+                return;
+            }
+
+            // Chuẩn bị dữ liệu để xuất Excel
+            const worksheet = XLSX.utils.json_to_sheet(jsonData);
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Dữ liệu từ API");
+
+            // Xuất file Excel
+            XLSX.writeFile(workbook, 'data_from_api.xlsx');
+        }
+    </script>
+</body>
+</html>

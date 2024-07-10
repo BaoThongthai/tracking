@@ -6,18 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-    <title>Quản lý dữ liệu</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+    <title>Laco - Quản lý dữ liệu</title>
+    <link rel="icon" href="https://play-lh.googleusercontent.com/dt8nAsWz6uBw_F3GMRGTdCFbTmtqZTLPE03YwChg65F0WjyGhTAP8Xgz2BNMrYxXMg=w240-h480-rw">
 </head>
 
-<body>
+<body style="background-color: #d132ce70;">
+    <!-- <script>
+        // Kiểm tra trạng thái xác thực từ session storage
+        if (sessionStorage.getItem('authenticated') !== 'true') {
+            // Nếu chưa xác thực, chuyển hướng về trang chính
+            window.location.href = 'index.html';
+        }
+      </script> -->
     <div class="container mt-5">
         <h1>Danh sách dữ liệu</h1>
+            <!-- Search form -->
+            <div class="input-group mb-3">
+                <input type="text" id="searchInput" class="form-control" placeholder="Tìm kiếm theo tên cửa hàng">
+            </div>
+            <hr>
 
-        <div id="trackingTable"></div>
+        <div id="trackingTable" style="background-color: rgba(240, 248, 255, 0.678); border-radius: 0px;"></div>
+
+
 
         <hr>
-
+        <!-- Link API :loilinhlanh020@gmail.com -->
         <!-- Modal Form sửa dữ liệu -->
         <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
             aria-hidden="true">
@@ -63,13 +78,49 @@
                 </div>
             </div>
         </div>
+
+        <!-- <button onclick="exportToExcel()">Xuất Excel</button> -->
+        <button type="button" class="btn btn-secondary" onclick="exportToExcel()">Export Data</button>
     </div>
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="jsShowdata.js"></script>
+    <script src="jsShowdata.js"></script>
+    <script src="searchdata.js"></script>
+    <script>
+        async function fetchData() {
+            try {
+                const response = await fetch('https://6605116c2ca9478ea17f2d5d.mockapi.io/tenduongdanang/tracking'); // Thay thế URL API của bạn ở đây
+                if (!response.ok) {
+                    throw new Error('Failed to fetch data');
+                }
+                return await response.json();
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                return [];
+            }
+        }
+
+        async function exportToExcel() {
+            const jsonData = await fetchData(); // Gọi hàm fetchData để lấy dữ liệu từ API
+
+            // Kiểm tra dữ liệu có rỗng hay không
+            if (jsonData.length === 0) {
+                alert('Không có dữ liệu để xuất Excel.');
+                return;
+            }
+
+            // Chuẩn bị dữ liệu để xuất Excel
+            const worksheet = XLSX.utils.json_to_sheet(jsonData);
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Dữ liệu từ API");
+
+            // Xuất file Excel
+            XLSX.writeFile(workbook, 'data_from_api.xlsx');
+        }
+    </script>
 
 </body>
 

@@ -56,6 +56,47 @@ async function deleteItem(id) {
             if (response.ok) {
                 alert('Xóa thành công!');
                 fetchData(); // Refresh the table after deletion
+                const response = await fetch('https://6605116c2ca9478ea17f2d5d.mockapi.io/tenduongdanang/tracking');
+                const data = await response.json();
+            
+                const trackingTable = document.getElementById('trackingTable');
+                trackingTable.innerHTML = `
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">STT</th>
+                                <th scope="col">Tên cửa hàng</th>
+                                <th scope="col">Link CMND</th>
+                                <th scope="col">Link Hợp đồng</th>
+                                <th scope="col">Trạng thái</th>
+                                <th scope="col">Chức Năng</th>
+                            </tr>
+                        </thead>
+                        <tbody id="trackingTableBody">
+                        </tbody>
+                    </table>
+                `;
+            
+                const tableBody = document.getElementById('trackingTableBody');
+                tableBody.innerHTML = '';
+            
+                data.forEach(item => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                    <td>${item.id}</td>
+                        <td>${item.Tencuahang}</td>
+                        <td><a href="${item.LinkCMND}" target="_blank">Hình ảnh CMND</a></td>
+                        <td><a href="${item.LinkHopDong}" target="_blank">Hình ảnh Hợp Đồng</a></td>
+                        
+                        <td>${item.trangthai === 1 ? 'Đã Ký' : 'Chưa Thành Công'}</td>
+             
+                        <td>
+                            <button onclick="editItem('${item.id}')" class="btn btn-warning btn-sm">Chỉnh Sửa</button>
+                            <button onclick="deleteItem('${item.id}')" class="btn btn-danger btn-sm">Xóa</button>
+                        </td>
+                    `;
+                    tableBody.appendChild(tr);
+                });
             } else {
                 throw new Error('Xóa không thành công');
             }
@@ -111,6 +152,48 @@ document.getElementById('editTrackingForm').addEventListener('submit', async fun
             alert('Cập nhật thành công!');
             fetchData(); // Refresh the table after update
             $('#editModal').modal('hide'); // Hide edit form modal after successful update
+            const response = await fetch('https://6605116c2ca9478ea17f2d5d.mockapi.io/tenduongdanang/tracking');
+            const data = await response.json();
+        
+            const trackingTable = document.getElementById('trackingTable');
+            trackingTable.innerHTML = `
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">STT</th>
+                            <th scope="col">Tên cửa hàng</th>
+                            <th scope="col">Link CMND</th>
+                            <th scope="col">Link Hợp đồng</th>
+                            <th scope="col">Trạng thái</th>
+                            <th scope="col">Chức Năng</th>
+                        </tr>
+                    </thead>
+                    <tbody id="trackingTableBody">
+                    </tbody>
+                </table>
+            `;
+        
+            const tableBody = document.getElementById('trackingTableBody');
+            tableBody.innerHTML = '';
+        
+            data.forEach(item => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                <td>${item.id}</td>
+                    <td>${item.Tencuahang}</td>
+                    <td><a href="${item.LinkCMND}" target="_blank">Hình ảnh CMND</a></td>
+                    <td><a href="${item.LinkHopDong}" target="_blank">Hình ảnh Hợp Đồng</a></td>
+                    
+                    <td>${item.trangthai === 1 ? 'Đã Ký' : 'Chưa Thành Công'}</td>
+         
+                    <td>
+                        <button onclick="editItem('${item.id}')" class="btn btn-warning btn-sm">Chỉnh Sửa</button>
+                        <button onclick="deleteItem('${item.id}')" class="btn btn-danger btn-sm">Xóa</button>
+                    </td>
+                `;
+                tableBody.appendChild(tr);
+            });
+            
         } else {
             throw new Error('Cập nhật không thành công');
         }
