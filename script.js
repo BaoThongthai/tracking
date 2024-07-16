@@ -1,4 +1,3 @@
-
 // Handle form submission
 document.getElementById('trackingForm').addEventListener('submit', function(event) {
   event.preventDefault();
@@ -19,14 +18,23 @@ document.getElementById('trackingForm').addEventListener('submit', function(even
     },
     body: JSON.stringify(formData),
   })
-  .then(response => response.json())
+  .then(response => {
+    if (!response.ok) {
+      if (response.status === 400) {
+        throw new Error('Dữ liệu đã đầy, không thể gửi thêm.');
+      } else {
+        throw new Error('Đã có lỗi xảy ra khi gửi dữ liệu.');
+      }
+    }
+    return response.json();
+  })
   .then(data => {
     alert('Dữ liệu đã được gửi thành công!');
     // Clear form after successful submission (if needed)
     document.getElementById('trackingForm').reset();
   })
   .catch(error => {
-    alert('Đã có lỗi xảy ra khi gửi dữ liệu.');
+    alert(error.message);
     console.error('Error:', error);
   });
 });
