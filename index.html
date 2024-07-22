@@ -12,10 +12,10 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <style src="styteIndex.css"></style>
   <link rel="icon" href="https://play-lh.googleusercontent.com/dt8nAsWz6uBw_F3GMRGTdCFbTmtqZTLPE03YwChg65F0WjyGhTAP8Xgz2BNMrYxXMg=w240-h480-rw">
-    <!-- Custom CSS -->
+  <!-- Custom CSS -->
 </head>
 
-<body style="background-color: #d132ce70;" >
+<body style="background-color: #d132ce70;">
 
   <div class="container mt-5" style="background-color: rgba(240, 248, 255, 0.678); border-radius: 10px;">
     <hr>
@@ -27,17 +27,19 @@
       </div>
       <div class="form-group">
         <label for="linkCMND">Link CMND</label>
-        <a style="float: right;" target="_blank"
-         href="https://drive.google.com/drive/folders/1-1_Pjcbg7hB_t05rGL7kak4ZQrMmStfh?usp=drive_link">Địa chỉ Hình ảnh</a>
+        <a style="float: right;" target="_blank" href="https://drive.google.com/drive/folders/1-1_Pjcbg7hB_t05rGL7kak4ZQrMmStfh?usp=drive_link">Địa chỉ Hình ảnh</a>
         <small style="color: red;">*Link hình ảnh</small>
         <input type="text" class="form-control" id="linkCMND" name="linkCMND" required>
       </div>
       <div class="form-group">
         <label for="linkHopDong">Link hợp đồng</label>
-        <a style="float: right;" target="_blank"
-        href="https://drive.google.com/drive/folders/1etqRawE9ZRKcAOtOlQ9fp_cmEV4l60ry?usp=drive_link">Địa chỉ Hợp Đồng</a>
+        <a style="float: right;" target="_blank" href="https://drive.google.com/drive/folders/1etqRawE9ZRKcAOtOlQ9fp_cmEV4l60ry?usp=drive_link">Địa chỉ Hợp Đồng</a>
         <small style="color: red;">*Link hợp đồng</small>
         <input type="text" class="form-control" id="linkHopDong" name="linkHopDong" required>
+      </div>
+      <div class="form-group">
+        <label for="menu">Menu</label>
+        <input type="text" class="form-control" id="menu" name="menu" required>
       </div>
       <div class="form-group">
         <label for="trangThai">Trạng thái</label><br>
@@ -51,86 +53,11 @@
         </div>
       </div>
       <button type="submit" class="btn btn-success">Gửi thông tin</button>
-      <!-- <a style="float: right;" href="#" id="protectedLink" data-toggle="modal" data-target="#passwordModal">Xem Thông tin</a> -->
-      <a style="float: right;" href="showdata.html" >Xem Thông tin</a>
+      <a style="float: right;" href="showdata.html">Xem Thông tin</a>
       <hr>
-
     </form>
-    <!-- Link để mở modal -->
-
-    <!-- Modal Bootstrap Password-->
-    <!-- <div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-labelledby="passwordModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="passwordModalLabel">Enter Password</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="passwordForm">
-                        <div class="form-group">
-                            <label for="password">Password:</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
-                        </div>
-                        <p id="errorMessage" class="text-danger"></p>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div> -->
   </div>
 
-
+  <script src="script.js"></script>
 </body>
-<script src="script.js"></script>
-
-
-<!-- Scrips password -->
-<!-- <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const passwordForm = document.getElementById('passwordForm');
-    const passwordInput = document.getElementById('password');
-    const errorMessage = document.getElementById('errorMessage');
-    const protectedLink = document.getElementById('protectedLink');
-
-    passwordForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-        const password = passwordInput.value;
-
-        // Gửi yêu cầu API để lấy mật khẩu hợp lệ
-        fetch('https://667d1684297972455f6368a4.mockapi.io/MKlaco')
-            .then(response => response.json())
-            .then(data => {
-                const validPassword = data[0].passwordlaco;
-
-                if (password === validPassword) {
-                    // Lưu trạng thái đăng nhập hợp lệ vào session storage
-                    sessionStorage.setItem('authenticated', 'true');
-                    // Chuyển hướng đến trang đích nếu xác thực thành công
-                    window.location.href = 'showdata.html';
-                } else {
-                    // Hiển thị thông báo lỗi nếu mật khẩu sai
-                    errorMessage.textContent = 'Sai mật khẩu, mời nhập lại.';
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-    });
-
-    protectedLink.addEventListener('click', function(event) {
-        // Kiểm tra trạng thái đăng nhập từ session storage
-        if (sessionStorage.getItem('authenticated') === 'true') {
-            window.location.href = 'showdata.html';
-        } else {
-            // Hiển thị modal yêu cầu mật khẩu nếu chưa xác thực
-            $('#passwordModal').modal('show');
-        }
-    });
-});
-
-</script>  -->
 </html>
