@@ -7,6 +7,7 @@ document.getElementById('trackingForm').addEventListener('submit', function(even
     Tencuahang: document.getElementById('tenCuahang').value,
     LinkCMND: document.getElementById('linkCMND').value,
     LinkHopDong: document.getElementById('linkHopDong').value,
+    Menu: document.getElementById('menu').value,
     trangthai: parseInt(document.querySelector('input[name="trangThai"]:checked').value)
   };
 
