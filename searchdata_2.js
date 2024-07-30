@@ -2,7 +2,7 @@ let originalData = []; // Lưu trữ dữ liệu ban đầu để làm cơ sở 
 
 async function fetchData() {
     try {
-        const response = await fetch('https://6605116c2ca9478ea17f2d5d.mockapi.io/tenduongdanang/tracking');
+        const response = await fetch('https://6605116c2ca9478ea17f2d5d.mockapi.io/tenduongdanang/videosanpham');
         if (!response.ok) {
             throw new Error('Không thể lấy dữ liệu từ API.');
         }

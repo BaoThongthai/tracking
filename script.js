@@ -10,31 +10,37 @@ document.getElementById('trackingForm').addEventListener('submit', function(even
     trangthai: parseInt(document.querySelector('input[name="trangThai"]:checked').value)
   };
 
-  // Send data to the API endpoint
-  fetch('https://6605116c2ca9478ea17f2d5d.mockapi.io/tenduongdanang/tracking', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(formData),
-  })
-  .then(response => {
-    if (!response.ok) {
-      if (response.status === 400) {
-        throw new Error('Dữ liệu đã đầy, không thể gửi thêm.');
-      } else {
-        throw new Error('Đã có lỗi xảy ra khi gửi dữ liệu.');
+  // Function to send data to an endpoint
+  function sendData(url) {
+    return fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+  }
+
+  // Try to send data to the primary endpoint
+  sendData('https://6605116c2ca9478ea17f2d5d.mockapi.io/tenduongdanang/tracking')
+    .then(response => {
+      if (!response.ok) {
+        if (response.status === 400) {
+          // If primary endpoint is full, send to secondary endpoint
+          return sendData('https://6605116c2ca9478ea17f2d5d.mockapi.io/tenduongdanang/videosanpham');
+        } else {
+          throw new Error('Đã có lỗi xảy ra khi gửi dữ liệu.');
+        }
       }
-    }
-    return response.json();
-  })
-  .then(data => {
-    alert('Dữ liệu đã được gửi thành công!');
-    // Clear form after successful submission (if needed)
-    document.getElementById('trackingForm').reset();
-  })
-  .catch(error => {
-    alert(error.message);
-    console.error('Error:', error);
-  });
+      return response.json();
+    })
+    .then(data => {
+      alert('Dữ liệu đã được gửi thành công!');
+      // Clear form after successful submission (if needed)
+      document.getElementById('trackingForm').reset();
+    })
+    .catch(error => {
+      alert(error.message);
+      console.error('Error:', error);
+    });
 });
