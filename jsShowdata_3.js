@@ -1,7 +1,7 @@
 
 
   //đếm số record
-  fetch('https://6605116c2ca9478ea17f2d5d.mockapi.io/tenduongdanang/videosanpham')
+  fetch('https://667d1684297972455f6368a4.mockapi.io/MKlaco')
   .then(response => response.json())
   .then(data => {
     // Đếm số lượng records
